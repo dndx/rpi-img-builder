@@ -9,3 +9,4 @@ plugins.txt
 *~
 *.tmp
 *.tar*
+plugins/pitot/files/usr/local/bin/pitot

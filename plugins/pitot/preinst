@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+mkdir -p rootfs/tmp/pitot
+git clone https://github.com/steve-m/librtlsdr.git rootfs/tmp/pitot/librtlsdr
+git clone https://github.com/dndx/dump1090.git rootfs/tmp/pitot/dump1090
+git clone https://github.com/dndx/dump978.git rootfs/tmp/pitot/dump978
+cd rootfs/tmp/pitot/dump1090 && git checkout libdump1090
+cd .. && cd dump978 && git checkout libdump978

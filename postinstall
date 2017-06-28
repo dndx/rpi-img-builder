@@ -85,6 +85,7 @@ adduser ${UNAME} audio || true
 adduser ${UNAME} video || true
 adduser ${UNAME} input || true
 adduser ${UNAME} tty || true
+adduser ${UNAME} dialout || true
 
 # Initialize /etc/apt/sources.list (remove multistrap from the filenames)
 for i in /etc/apt/sources.list.d/*; do

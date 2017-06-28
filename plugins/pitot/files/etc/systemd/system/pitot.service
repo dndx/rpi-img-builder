@@ -1,0 +1,14 @@
+[Unit]
+Description=Pitot ADS-B Receiver
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+Environment=RUST_BACKTRACE=1 RUST_LOG=info
+ExecStart=/usr/local/bin/pitot
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

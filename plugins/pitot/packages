@@ -1,0 +1,1 @@
+hostapd udhcpd firmware-brcm80211 git cmake libusb-1.0-0.dev build-essential autoconf libtool busybox-syslogd wireless-tools rpi-update

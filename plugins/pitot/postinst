@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -e
+
+sed -i -e 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd.conf"/g' /etc/default/hostapd
+sed -i -e 's/DHCPD_ENABLED="no"/#DHCPD_ENABLED="no"/g' /etc/default/udhcpd
+
+systemctl enable hostapd
+systemctl enable udhcpd
+systemctl enable /etc/systemd/system/pitot.service
+
+cd /tmp/pitot/librtlsdr && mkdir build \
+&& cd build \
+&& cmake ../ -DINSTALL_UDEV_RULES=ON \
+&& make \
+&& make install
+
+cd /tmp/pitot/dump1090 \
+&& make \
+&& make install
+
+cd /tmp/pitot/dump978 \
+&& make \
+&& make install
+
+rm -rf /tmp/pitot
+
+ldconfig
+
+# disable HDMI
+sed -i -e '$i \/usr/bin/tvservice -o\n' /etc/rc.local
+
+echo 'net.core.rmem_max = 10485760' >> /etc/sysctl.conf
+echo 'net.core.rmem_default = 10485760' >> /etc/sysctl.conf
+echo 'net.core.wmem_max = 10485760' >> /etc/sysctl.conf
+echo 'net.core.wmem_default = 10485760' >> /etc/sysctl.conf
+echo 'vm.min_free_kbytes = 16384' >> /etc/sysctl.conf
+
+# SKIP_BACKUP=1 rpi-update
+
+setcap CAP_SYS_TIME,CAP_NET_RAW+ep /usr/local/bin/pitot
