@@ -3,9 +3,11 @@ set -e
 
 sed -i -e 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd.conf"/g' /etc/default/hostapd
 sed -i -e 's/DHCPD_ENABLED="no"/#DHCPD_ENABLED="no"/g' /etc/default/udhcpd
+sed -i -e 's/worker_processes auto;/worker_processes 1;/g' /etc/nginx/nginx.conf
 
 systemctl enable hostapd
 systemctl enable udhcpd
+systemctl enable nginx
 systemctl enable /etc/systemd/system/pitot.service
 
 cd /tmp/pitot/librtlsdr && mkdir build \
@@ -21,6 +23,8 @@ cd /tmp/pitot/dump1090 \
 cd /tmp/pitot/dump978 \
 && make \
 && make install
+
+cp -r /tmp/pitot/pitot/webui/* /var/www/html
 
 rm -rf /tmp/pitot
 
