@@ -58,6 +58,7 @@ dtparam=audio=on
 dtparam=act_led_trigger=none
 dtparam=act_led_activelow=off
 
+dtparam=i2c_arm=on
 dtparam=i2c1=on
 dtparam=i2c1_baudrate=400000
 dtparam=i2c_arm_baudrate=400000

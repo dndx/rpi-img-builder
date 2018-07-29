@@ -42,3 +42,7 @@ echo 'vm.min_free_kbytes = 16384' >> /etc/sysctl.conf
 # SKIP_BACKUP=1 rpi-update
 
 setcap CAP_SYS_TIME,CAP_NET_RAW+ep /usr/local/bin/pitot
+
+groupadd i2c
+usermod -a -G i2c pi
+echo "i2c-dev" >> /etc/modules
